@@ -114,7 +114,7 @@ export default function PointsEntry({ playerCount, totalScore }:Props) {
           <button onClick={submitRound}>Submit</button>
         </section>
         <section className="Leaderboard">
-          <h2>Leaderboard</h2>
+          <h2 className="Leaderboard-title">Leaderboard</h2>
           {clone
             .sort((a, b) => b.totalPoint - a.totalPoint)
             .map((x: IPlayer, index) => {

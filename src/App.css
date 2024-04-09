@@ -7,12 +7,13 @@
   font-size: 21px;
 }
 
-h1 {
+h1, p, h2 , h3{
   margin: 0;
 }
 
 p{
   font-size: 21px;
+  font-weight: 500;
 }
 
 .logs {
@@ -24,8 +25,11 @@ gap: 10px;
 }
 
 section.roundData-Main {
-  padding: 1%;
   border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px;
+  min-width: 250px;
+  text-align: center;
 }
 
 input[type="number"] , .box{
@@ -51,10 +55,12 @@ main.main-area > section {
 
 .winner{
   color: green;
+  font-weight: bold;
 }
 
 .wrongShow{
   color: red;
+  font-weight: bold;
 }
 
 .strick {
@@ -118,3 +124,11 @@ button:active {
   width: 24%;
   display: inline-block;
 }
+
+.Leaderboard-title{
+  margin: 0;
+}
+
+/* .main-logs > h2 {
+  border-bottom: 1px solid;
+} */
