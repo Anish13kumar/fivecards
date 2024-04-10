@@ -20,10 +20,14 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
   const [log, setlog] = useState([]);
   const [clone, setClone] = useState<IPlayer[]>([]);
   const [winState, setWinState] = useState([]);
+  const [loseState, setLoseState] = useState([]);
   const [winMapper, setWinMapper] = useState();
+  const [loseMapper, setLoseMapper] = useState();
 
   const userwinStatus: string[] = [];
-  // const totalPoint = 300;
+  const userloseStatus: string[] = [];
+  
+  const wrongShowPoint= 50
 
   useEffect(() => {
     // Initialize an empty array to hold the new players
@@ -62,9 +66,15 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
         currentPoint: +iE,
         previousPoint: +(player.point - iE),
         propershow: +iE === 0 && index + 1,
+        exited: player.point >= totalScore? true: false
       });
-      if (+iE === 0) {
+
+      console.log(roundPoint)
+      if (+iE === 0 && !(roundPoint[index]?.exited)) {
         userwinStatus.push(player.name);
+      }
+      if (+iE === wrongShowPoint && !(roundPoint[index]?.exited)) {
+        userloseStatus.push(player.name);
       }
 
       console.log({ userwinStatus });
@@ -74,6 +84,7 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
     setClone([...roundPoint]);
     setlog((prev) => [...prev, roundPoint]);
     setWinState((prev) => [...prev, ...userwinStatus]);
+    setLoseState((prev) => [...prev, ...userloseStatus]);
   };
 
   useEffect(() => {
@@ -85,9 +96,23 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
     };
 
     const playerCounts = countOccurrences(winState);
-    console.log({ winState, playerCounts });
     setWinMapper(playerCounts);
   }, [winState]);
+
+
+  useEffect(() => {
+    const countOccurrences = (arr) => {
+      return arr.reduce((acc, player) => {
+        acc[player] = (acc[player] || 0) + 1;
+        return acc;
+      }, {});
+    };
+
+    const playerCounts = countOccurrences(loseState);
+    console.log({playerCounts})
+    setLoseMapper(playerCounts);
+  }, [loseState]);
+  
 
   return (
     <>
@@ -127,6 +152,7 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
                   <span className="wrongShow">{x.totalPoint} points </span>{" "}
                   (Remaining:{" "}
                   <span className="winner">{totalScore - x?.totalPoint}</span>)
+                  <span className={loseMapper[x.name] ? 'loseMapper' : undefined}>{loseMapper[x.name]}</span>
                 </h2>
               );
             })}
@@ -150,7 +176,7 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
                             key={i}
                             className={
                               (y.currentPoint === 0 ? "winner" : undefined) ||
-                              (y.currentPoint === 50 ? "wrongShow" : undefined)
+                              (y.currentPoint === wrongShowPoint ? "wrongShow" : undefined)
                             }
                           >
                             {y.name} : {y.previousPoint} + {y.currentPoint}{" "}
