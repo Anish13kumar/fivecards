@@ -26,8 +26,8 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
 
   const userwinStatus: string[] = [];
   const userloseStatus: string[] = [];
-  
-  const wrongShowPoint= 50
+
+  const wrongShowPoint = 50;
 
   useEffect(() => {
     // Initialize an empty array to hold the new players
@@ -66,14 +66,14 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
         currentPoint: +iE,
         previousPoint: +(player.point - iE),
         propershow: +iE === 0 && index + 1,
-        exited: player.point >= totalScore? true: false
+        exited: player.point >= totalScore ? true : false,
       });
 
-      console.log(roundPoint)
-      if (+iE === 0 && !(roundPoint[index]?.exited)) {
+      console.log(roundPoint);
+      if (+iE === 0 && !roundPoint[index]?.exited) {
         userwinStatus.push(player.name);
       }
-      if (+iE === wrongShowPoint && !(roundPoint[index]?.exited)) {
+      if (+iE === wrongShowPoint && !roundPoint[index]?.exited) {
         userloseStatus.push(player.name);
       }
 
@@ -99,7 +99,6 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
     setWinMapper(playerCounts);
   }, [winState]);
 
-
   useEffect(() => {
     const countOccurrences = (arr) => {
       return arr.reduce((acc, player) => {
@@ -109,15 +108,15 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
     };
 
     const playerCounts = countOccurrences(loseState);
-    console.log({playerCounts})
+    console.log({ playerCounts });
     setLoseMapper(playerCounts);
   }, [loseState]);
-  
 
   return (
     <>
       <main className="main-area">
         <section className="player-info">
+        <h2 className="Leaderboard-title">Player List</h2>
           {players.map((player, index) => (
             <React.Fragment key={index}>
               <p>
@@ -139,23 +138,78 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
         </section>
         <section className="Leaderboard">
           <h2 className="Leaderboard-title">Leaderboard</h2>
-          {clone
-            .sort((a, b) => b.totalPoint - a.totalPoint)
-            .map((x: IPlayer, index) => {
-              return (
-                <h2
-                  key={index}
-                  className={x?.totalPoint >= totalScore ? "strick" : undefined}
-                >
-                  <span className={winMapper[x.name] ? 'winnerMapper' : undefined}>{winMapper[x.name]}</span>
-                  <span className="playerName">{x.name} :</span>{" "}
-                  <span className="wrongShow">{x.totalPoint} points </span>{" "}
-                  (Remaining:{" "}
-                  <span className="winner">{totalScore - x?.totalPoint}</span>)
-                  <span className={loseMapper[x.name] ? 'loseMapper' : undefined}>{loseMapper[x.name]}</span>
-                </h2>
-              );
-            })}
+          <table>
+            <tr>
+              <th>Player Points</th>
+              <th>Win</th>
+              <th>Wrong Show</th>
+            </tr>
+            {clone
+              .sort((a, b) => b.totalPoint - a.totalPoint)
+              .map((x: IPlayer, index) => {
+                return (
+                  <>
+                    {/* <h2
+                    key={index}
+                    className={
+                      x?.totalPoint >= totalScore ? "strick" : undefined
+                    }
+                  >
+                    <span
+                      className={winMapper[x.name] ? "winnerMapper" : undefined}
+                    >
+                      {winMapper[x.name]}
+                    </span>
+                    <span className="playerName">{x.name} :</span>{" "}
+                    <span className="wrongShow">{x.totalPoint} points </span>{" "}
+                    (Remaining:{" "}
+                    <span className="winner">{totalScore - x?.totalPoint}</span>
+                    )
+                    <span
+                      className={loseMapper[x.name] ? "loseMapper" : undefined}
+                    >
+                      {loseMapper[x.name]}
+                    </span>
+                  </h2> */}
+
+                    <tr>
+                      <td>
+                        <h3>
+                        <span className="playerName">{x.name} :</span>{" "}
+                        <span className="wrongShow">
+                          {x.totalPoint} points{" "}
+                        </span>{" "}
+                        (Remaining:{" "}
+                        <span className="winner">
+                          {totalScore - x?.totalPoint}
+                        </span>
+                        )
+                        </h3>
+                      </td>
+                      <td>
+                        <span
+                          className={
+                            winMapper[x.name] ? "winnerMapper" : undefined
+                          }
+                        >
+                          {winMapper[x.name]}
+                        </span>
+                      </td>
+                      <td>
+                        {" "}
+                        <span
+                          className={
+                            loseMapper[x.name] ? "loseMapper" : undefined
+                          }
+                        >
+                          {loseMapper[x.name]}
+                        </span>
+                      </td>
+                    </tr>
+                  </>
+                );
+              })}
+          </table>
         </section>
       </main>
       <section className="main-logs">
@@ -176,7 +230,9 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
                             key={i}
                             className={
                               (y.currentPoint === 0 ? "winner" : undefined) ||
-                              (y.currentPoint === wrongShowPoint ? "wrongShow" : undefined)
+                              (y.currentPoint === wrongShowPoint
+                                ? "wrongShow"
+                                : undefined)
                             }
                           >
                             {y.name} : {y.previousPoint} + {y.currentPoint}{" "}

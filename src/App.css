@@ -47,10 +47,14 @@ main.main-area {
     /* padding: 1%; */
 }
 
+.player-info{
+  width: 30% !important;
+}
+
 main.main-area > section {
-  width: 50%;
+  width: 70%;
   border: 1px solid;
-  padding: 2%;
+  padding: 0 1% 2%;
 }
 
 .winner{
@@ -143,6 +147,22 @@ button:active {
   padding: 5px;
   font-size: 18px;
   margin-left: 20px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 /* .main-logs > h2 {
