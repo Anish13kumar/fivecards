@@ -14,14 +14,15 @@ interface IPlayer {
   propershow?: number;
 }
 
-export default function PointsEntry({ playerCount, totalScore }:Props) {
+export default function PointsEntry({ playerCount, totalScore }: Props) {
   const [players, setPlayers] = useState<IPlayer[]>([]);
   // const [finalOutput, setFinalOutput] = useState([]);
   const [log, setlog] = useState([]);
   const [clone, setClone] = useState<IPlayer[]>([]);
-  const [winState, setWinState] = useState([])
+  const [winState, setWinState] = useState([]);
+  const [winMapper, setWinMapper] = useState();
 
-  const userwinStatus: string[] = []
+  const userwinStatus: string[] = [];
   // const totalPoint = 300;
 
   useEffect(() => {
@@ -44,8 +45,6 @@ export default function PointsEntry({ playerCount, totalScore }:Props) {
     };
   }, []); // Dependency array ensures this effect runs only when playerCount changes
 
-  console.log({ players });
-
   const submitRound = () => {
     const roundPoint: {
       name: string;
@@ -62,34 +61,34 @@ export default function PointsEntry({ playerCount, totalScore }:Props) {
         totalPoint: player.point,
         currentPoint: +iE,
         previousPoint: +(player.point - iE),
-        propershow: +iE === 0 && index+1
+        propershow: +iE === 0 && index + 1,
       });
-      if(+iE === 0){
-        userwinStatus.push(player.name)
+      if (+iE === 0) {
+        userwinStatus.push(player.name);
       }
 
-    console.log({userwinStatus})
-        document.getElementById(`$player${index}`).value = parseInt(0, 10);
-  
+      console.log({ userwinStatus });
+      document.getElementById(`$player${index}`).value = parseInt(0, 10);
     });
-    console.log({ roundPoint });
     // setFinalOutput(roundPoint);
     setClone([...roundPoint]);
     setlog((prev) => [...prev, roundPoint]);
     setWinState((prev) => [...prev, ...userwinStatus]);
+  };
 
-
+  useEffect(() => {
     const countOccurrences = (arr) => {
       return arr.reduce((acc, player) => {
         acc[player] = (acc[player] || 0) + 1;
         return acc;
       }, {});
     };
-    
+
     const playerCounts = countOccurrences(winState);
-    console.log({winState,playerCounts});
- 
-  };
+    console.log({ winState, playerCounts });
+    setWinMapper(playerCounts);
+  }, [winState]);
+
   return (
     <>
       <main className="main-area">
@@ -118,15 +117,13 @@ export default function PointsEntry({ playerCount, totalScore }:Props) {
           {clone
             .sort((a, b) => b.totalPoint - a.totalPoint)
             .map((x: IPlayer, index) => {
-              {
-                console.log({winState});
-              }
               return (
                 <h2
                   key={index}
                   className={x?.totalPoint >= totalScore ? "strick" : undefined}
                 >
-                 <span className="playerName">{x.name} :</span>{" "}
+                  <span className={winMapper[x.name] ? 'winnerMapper' : undefined}>{winMapper[x.name]}</span>
+                  <span className="playerName">{x.name} :</span>{" "}
                   <span className="wrongShow">{x.totalPoint} points </span>{" "}
                   (Remaining:{" "}
                   <span className="winner">{totalScore - x?.totalPoint}</span>)
@@ -153,7 +150,7 @@ export default function PointsEntry({ playerCount, totalScore }:Props) {
                             key={i}
                             className={
                               (y.currentPoint === 0 ? "winner" : undefined) ||
-                              (y.currentPoint === 50 ? "wrongShow": undefined)
+                              (y.currentPoint === 50 ? "wrongShow" : undefined)
                             }
                           >
                             {y.name} : {y.previousPoint} + {y.currentPoint}{" "}

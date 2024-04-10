@@ -128,6 +128,13 @@ button:active {
 .Leaderboard-title{
   margin: 0;
 }
+.winnerMapper{
+  background-color: green;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 18px;
+}
 
 /* .main-logs > h2 {
   border-bottom: 1px solid;
