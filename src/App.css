@@ -18,10 +18,14 @@ p{
 
 .logs {
   display: flex;
-gap: 10px;
-  width: 100%;
+  gap: 10px;
+  width: 98%;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  overflow-y: scroll;
+  max-height: 500px;
+  border: 1px solid;
+  padding: 1%;
 }
 
 section.roundData-Main {
@@ -63,7 +67,7 @@ main.main-area > section {
 }
 
 .wrongShow{
-  color: red;
+  color: crimson;
   font-weight: bold;
 }
 
@@ -136,17 +140,18 @@ button:active {
   background-color: green;
   color: #fff;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .loseMapper{
   background-color: grey;
   color: #fff;
   border-radius: 50%;
-  padding: 5px;
+  padding: 10px;
   font-size: 18px;
-  margin-left: 20px;
+  font-weight: 700;
 }
 
 table {
@@ -161,10 +166,14 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: #dddddd;
-}
+} */
 
 /* .main-logs > h2 {
   border-bottom: 1px solid;
 } */
+
+.spacing{
+  margin: 1% auto;
+}

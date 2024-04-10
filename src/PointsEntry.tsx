@@ -116,7 +116,7 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
     <>
       <main className="main-area">
         <section className="player-info">
-        <h2 className="Leaderboard-title">Player List</h2>
+          <h2 className="Leaderboard-title">Player List</h2>
           {players.map((player, index) => (
             <React.Fragment key={index}>
               <p>
@@ -149,41 +149,18 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
               .map((x: IPlayer, index) => {
                 return (
                   <>
-                    {/* <h2
-                    key={index}
-                    className={
-                      x?.totalPoint >= totalScore ? "strick" : undefined
-                    }
-                  >
-                    <span
-                      className={winMapper[x.name] ? "winnerMapper" : undefined}
-                    >
-                      {winMapper[x.name]}
-                    </span>
-                    <span className="playerName">{x.name} :</span>{" "}
-                    <span className="wrongShow">{x.totalPoint} points </span>{" "}
-                    (Remaining:{" "}
-                    <span className="winner">{totalScore - x?.totalPoint}</span>
-                    )
-                    <span
-                      className={loseMapper[x.name] ? "loseMapper" : undefined}
-                    >
-                      {loseMapper[x.name]}
-                    </span>
-                  </h2> */}
-
                     <tr>
                       <td>
                         <h3>
-                        <span className="playerName">{x.name} :</span>{" "}
-                        <span className="wrongShow">
-                          {x.totalPoint} points{" "}
-                        </span>{" "}
-                        (Remaining:{" "}
-                        <span className="winner">
-                          {totalScore - x?.totalPoint}
-                        </span>
-                        )
+                          <span className="playerName">{x.name} :</span>{" "}
+                          <span className="wrongShow">
+                            {x.totalPoint} points{" "}
+                          </span>{" "}
+                          (Remaining:{" "}
+                          <span className="winner">
+                            {totalScore - x?.totalPoint}
+                          </span>
+                          )
                         </h3>
                       </td>
                       <td>
@@ -213,7 +190,7 @@ export default function PointsEntry({ playerCount, totalScore }: Props) {
         </section>
       </main>
       <section className="main-logs">
-        <h2>Points Log</h2>
+        <h2 className="spacing">Points Log</h2>
 
         <div className="logs">
           {log.map((x: IPlayer, index) => {
