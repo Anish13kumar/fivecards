@@ -1,0 +1,33 @@
+# Ignore node_modules
+node_modules
+
+# Ignore logs
+logs
+*.log
+npm-debug.log*
+
+
+# Ignore build files
+dist
+build
+
+# Ignore environment variables
+.env
+.git
+
+# Ignore Docker files
+
+# Ignore coverage files
+coverage
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
